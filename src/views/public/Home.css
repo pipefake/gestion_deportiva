@@ -1,0 +1,245 @@
+* {
+  margin: 0;
+}
+/*Estilos header*/
+.header {
+  margin-top: 65px;
+  margin-bottom: 5px;
+}
+/*Estilos Home*/
+.ingresarHome {
+  padding: 40% 10% !important;
+}
+/*Estilos ListaEmpleado*/
+.btnAdd {
+  position: fixed;
+  right: 24px;
+  top: 35px;
+  width: 65px;
+  height: 61px;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.divEmpleado {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #f1f4ff;
+  border: solid 2px #1f41bb;
+  border-radius: 10px;
+  height: 49px;
+  width: 90%;
+  margin: 10px;
+}
+.trash {
+  background: none;
+  border: none;
+  margin-right: 8px;
+}
+.divEmpleado > p {
+  padding: 12px 15px;
+}
+.contEmpleados {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contEmpleados {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/*Estilos Home*/
+.Home {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+.foto {
+  border-radius: 50%;
+}
+.blueTittle {
+  color: #1f41bb;
+}
+.loginBtn {
+  width: 120px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: #1f41bb;
+  color: white;
+  margin: 12px;
+}
+.input {
+  width: 80%;
+  padding: 20px;
+  border: none;
+  border-radius: 12px;
+  margin: 14px;
+  background: #eaefff;
+}
+.inputEmail {
+  background-color: #f1f4ff;
+  font-size: 16px;
+}
+.inputEmail::placeholder {
+  color: #626262;
+}
+.registerBtn {
+  width: 120px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  margin: 12px;
+  color: white;
+}
+
+.smallText {
+  font-size: 14px;
+}
+.largeText {
+  font-size: 35px;
+}
+.regularText {
+  font-size: 20px;
+}
+
+/*paginacion*/
+.pagination {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.pagination .page-item {
+  margin: 0 5px;
+}
+
+.pagination .page-link {
+  display: block;
+  padding: 10px;
+  color: #007bff;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.pagination .active .page-link {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+}
+
+.pagination .page-link:hover {
+  background-color: #f8f9fa;
+}
+
+/*poppins*/
+.poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.poppins-extralight {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-black {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.poppins-thin-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.poppins-extralight-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.poppins-light-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.poppins-medium-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.poppins-semibold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.poppins-extrabold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.poppins-black-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
