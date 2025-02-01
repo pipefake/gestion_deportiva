@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
+import Axios from 'axios';
 import fotoFelipeJimenez from '../../assets/sulogisticaLogo.png';
 // import Axios from 'axios';
 
@@ -8,18 +9,47 @@ import fotoFelipeJimenez from '../../assets/sulogisticaLogo.png';
 const Registro = () => {
 
 
-    const [id_cedula, setID_cedula] = useState('');
+    const [cedula, setCedula] = useState('');
     const [email, setEmail] = useState('');
     const [contrasena, setContrasena] = useState('');
     const [nombre, setNombre] = useState('');
     const [mensaje, setMensaje] = useState('');
     const navigate = useNavigate();
 
-    const login = (e) => {
+    const login = async (e) => {
         e.preventDefault();
+        const usuario = { nombre, email, contrasena, cedula };
+        console.log(usuario);
+        try {
+
+            const respuesta = await Axios.post('http://localhost:3001/usuarios', usuario, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            );
+            console.log(respuesta);
+            const mensaje = respuesta.data.mensaje;
+            const token = respuesta.data.token;
+
+            if (mensaje !== 'Registro exitoso') {
+                console.log('Usuario no registrado');
+                setMensaje('Usuario no registrado');
+            } else {
+                setMensaje('Registro exitoso');
+                console.log('Registro');
+                sessionStorage.setItem('token', token)
+            }
+
+        } catch (err) {
+
+            setMensaje('Registro Error');
+            console.error(err.response ? err.response.data : err.message);
+        }
+
     }
 
-    const handleRedirectionInicio =  (e) => {
+    const handleRedirectionInicio = (e) => {
         navigate('/login');
     }
 
@@ -41,12 +71,12 @@ const Registro = () => {
                         placeholder='Nombre'
                         onChange={(e) => setNombre(e.target.value)} />
                     <input
-                        id='id_cedula'
+                        id='cedula'
                         className='input'
                         name='cedula'
-                        value={id_cedula}
+                        value={cedula}
                         placeholder='Cédula'
-                        onChange={(e) => setID_cedula(e.target.value)} />
+                        onChange={(e) => setCedula(e.target.value)} />
                     <input
                         id='email'
                         className='input'
@@ -60,21 +90,21 @@ const Registro = () => {
                         value={contrasena}
                         placeholder='Contraseña'
                         onChange={(e) => setContrasena(e.target.value)} />
-<div className='content_botones'>
- <button id='nombreBtn' className='regularText loginBtn poppins-semibold'
-                    >
-                        Registrar
-                    </button>
-                    <button id='registerBtn'
-                    className='btnNegativo poppins-semibold'
-                    onClick={handleRedirectionInicio}>
-                    Ya tengo una cuenta.
-                </button>
-</div>
-                   
+                    <div className='content_botones'>
+                        <button id='nombreBtn' className='regularText loginBtn poppins-semibold'
+                        >
+                            Registrar
+                        </button>
+                        <button id='registerBtn'
+                            className='btnNegativo poppins-semibold'
+                            onClick={handleRedirectionInicio}>
+                            Ya tengo una cuenta.
+                        </button>
+                    </div>
+
                 </form>
                 {mensaje && <p>{mensaje}</p>}
-                
+
             </div>
         </div>
     )

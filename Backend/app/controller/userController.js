@@ -2,14 +2,30 @@ const pool = require("./db");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
+const res = require("express/lib/response");
+
+//Listar departamentos u sedes
+// const CabecerasRegistrar = asyn(req, res) => {
+//     try {
+//         const result = await pool.query(
+//             `SELECT id_departamento, nombre
+//             FROM public.departamento;`
+//         );
+        
+//         const usuario = result.rows[0];console.log(result.rows);
+//     } catch (error) {
+//         console.error('Error al registrar usuario:', err.message);
+//         res.status(500).json({ mensaje: 'Error al registrar usuario', error: err.message });
+//     }
+// }
 
 // Agregar nuevo usuario
 const agregarUsuario = async (req, res) => {
     const { nombre, rol, cedula, email, id_sede, id_departamento, contrasena } = req.body;
 
     // Verificar que los campos esenciales están presentes
-    if (!nombre || !rol || !cedula || !contrasena) {
-        return res.status(400).json({ mensaje: 'Nombre, rol, cédula y contraseña son requeridos' });
+    if (!nombre || !cedula || !contrasena) {
+        return res.status(400).json({ mensaje: 'Nombre, cédula y contraseña son requeridos' });
     }
 
     // Validar el formato del correo si se proporciona
@@ -28,7 +44,7 @@ const agregarUsuario = async (req, res) => {
                 return res.status(400).json({ mensaje: 'Correo ya existe' });
             }
         }
-        
+
         // Insertar el nuevo usuario en la base de datos
         const result = await pool.query(
             `INSERT INTO public.usuarios (nombre, rol, cedula, email, id_sede, id_departamento, contrasena) 
