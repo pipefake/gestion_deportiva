@@ -18,25 +18,30 @@ const Home = () => {
     return (
         <div className='Home'>
             <div>
-                <h3 className='largeText ligth-tittle poppins-regular'>
-                    Juan Felipe Jiménez Salazar
-                </h3>
-                <img className='foto' src={fotoFelipeJimenez} alt='foto de felipe jimenez' />
-                <h2 className='largeText blueTittle poppins-semibold'>
+            <h3 className="sombra-fuerte-texto largeText ligth-tittle poppins-regular nombre">Juan Felipe Jiménez Salazar</h3>
+                <img className='foto sombra-suave' src={fotoFelipeJimenez} alt='foto de felipe jimenez' />
+                <h2 className='sombra-suave-texto largeText blueTittle poppins-semibold'>
                     Prueba Full Stack
                 </h2>
-                <p className='smallText poppins-regular'>
-                    Esta api es una prueba para mi postulación en la empresa Susoftware.
+                <p className='poppins-regular parrafo sombra-medio-text'>
+                    Esta api es una prueba para mi postulación
+                    <br />
+                     en el cargo de desarrollador fullstack,
+                    <br /> 
+                    en la empresa Susoftware.
                 </p>
-                <button id='loginBtn' className='regularText loginBtn poppins-semibold'
+                <div className='content_botones'>
+                <button id='loginBtn' className=' regularText loginBtn poppins-semibold'
                     onClick={handleLogin}>
                     Login
                 </button >
                 <button id='registerBtn'
-                    className='regularText registerBtn poppins-semibold'
+                    className='regularText btnNegativo poppins-semibold'
                     onClick={handleRegister}>
                     Register
                 </button>
+                </div>
+                
             </div>
         </div>
     )
