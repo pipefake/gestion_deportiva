@@ -31,7 +31,7 @@ const Login = () => {
             } else {
                 console.log('Bienvenido');
                 sessionStorage.setItem('token', token)
-                navigate('/inicio');
+                navigate('/tasks');
             }
         } catch (err) {
             console.error(err.response ? err.response.data : err.message);

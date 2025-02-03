@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const userRoutes = require('./app/routes/userRoutes');
+const tasksRoutes = require('./app/routes/tasksRoutes');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/', userRoutes);
+app.use('/user', tasksRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

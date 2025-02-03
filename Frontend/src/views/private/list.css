@@ -1,0 +1,20 @@
+.lista {
+  width: 80vw;
+  padding-left: 10%;
+  padding-top: 5%;
+}
+.btnCreateTask {
+  margin: 35px;
+}
+
+.content-tasks,
+.content-profile {
+  width: 100vw;
+  height: 100vh;
+}
+
+.profile{
+  width: 80vw;
+  padding-left: 10%;
+  padding-top: 5%;
+}

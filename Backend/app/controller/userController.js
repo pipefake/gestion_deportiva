@@ -11,7 +11,7 @@ const res = require("express/lib/response");
 //             `SELECT id_departamento, nombre
 //             FROM public.departamento;`
 //         );
-        
+
 //         const usuario = result.rows[0];console.log(result.rows);
 //     } catch (error) {
 //         console.error('Error al registrar usuario:', err.message);
@@ -87,7 +87,8 @@ const iniciarSesion = async (req, res) => {
 
     try {
         // Buscar el usuario por correo
-        const result = await pool.query('SELECT * FROM public.usuarios WHERE email = $1', [email]);
+        const result = await pool.query('select u.id_usuario, u.nombre, u.email, d.id_departamento as departamento, u.contrasena, s.id_sede as sede, u.cedula from public.usuarios u left join departamento d on d.id_departamento = u.id_departamento left join sede s on s.id_sede = u.id_sede where email = $1', [email]);
+
         if (result.rows.length === 0) {
             return res.status(400).json({ mensaje: 'Correo Incorrecto' });
         }
@@ -96,7 +97,16 @@ const iniciarSesion = async (req, res) => {
         const contrasenaCorrecta = await bcrypt.compare(contrasena, usuario.contrasena);
         if (contrasenaCorrecta) {
             // Crear un token JWT para el usuario
-            const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: '2h' });
+
+            const token = jwt.sign({
+                id: usuario.id_usuario,
+                cedula: usuario.cedula,
+                nombre: usuario.nombre,
+                email: usuario.email,
+                sede: usuario.sede,
+                departamento: usuario.departamento
+            }, process.env.JWT_SECRET, { expiresIn: '2h' });
+
             // Enviar la respuesta con el token y los detalles del usuario
             res.json({
                 mensaje: 'Bienvenido',
@@ -139,52 +149,42 @@ const eliminarUsuario = async (req, res) => {
 // Actualizar usuario
 const actualizarUsuario = async (req, res) => {
     const { id } = req.params;
-    const { nombre, email, contrasena } = req.body;
+    const { nombre, rol, cedula, email, id_sede, id_departamento, contrasena } = req.body;
 
     // Verificar que el identificador está presente
     if (!id) {
         return res.status(400).json({ mensaje: 'ID del usuario es requerido' });
     }
 
-    // Verificar al menos un campo para actualizar
-    if (!nombre && !email && !contrasena) {
-        return res.status(400).json({ mensaje: 'Al menos un campo (nombre, correo, o contraseña) debe ser proporcionado para actualizar' });
+    // Verificar que todos los campos estén presentes
+    if (!nombre || !cedula || !email || !id_sede || !id_departamento || !contrasena) {
+        return res.status(400).json({ mensaje: 'Todos los campos (nombre, rol, cédula, correo, sede, departamento, contraseña) son requeridos para actualizar' });
     }
 
-    // Validar el formato del correo si se proporciona
-    if (email && !validator.isEmail(email)) {
+    // Validar el formato del correo
+    if (!validator.isEmail(email)) {
         return res.status(400).json({ mensaje: 'Correo Incorrecto' });
     }
 
     try {
-        // Generar el hash de la nueva contraseña si se proporciona
-        let hash = null;
-        if (contrasena) {
-            hash = await bcrypt.hash(contrasena, 10);
-        }
+        // Generar el hash de la nueva contraseña
+        const hash = await bcrypt.hash(contrasena, 10);
 
-        // Preparar la consulta para actualizar los campos proporcionados
-        let query = 'UPDATE public.usuarios SET';
-        const values = [];
-        let index = 1;
+        // Preparar los valores para la actualización
+        const values = [nombre, rol, cedula, email, id_sede, id_departamento, hash, id];
 
-        if (nombre) {
-            query += ` nombre = $${index++},`;
-            values.push(nombre);
-        }
-        if (email) {
-            query += ` email = $${index++},`;
-            values.push(email);
-        }
-        if (hash) {
-            query += ` contrasena = $${index++},`;
-            values.push(hash);
-        }
-
-        // Eliminar la coma final y añadir la cláusula WHERE
-        query = query.slice(0, -1); // Elimina la última coma
-        query += ' WHERE id = $' + index;
-        values.push(id);
+        // Consulta de actualización
+        const query = `
+            UPDATE public.usuarios
+            SET nombre = $1,
+                rol = $2,
+                cedula = $3,
+                email = $4,
+                id_sede = $5,
+                id_departamento = $6,
+                contrasena = $7
+            WHERE id_usuario = $8
+        `;
 
         // Ejecutar la consulta de actualización
         const result = await pool.query(query, values);
@@ -199,7 +199,6 @@ const actualizarUsuario = async (req, res) => {
         res.status(500).json({ mensaje: 'Error al actualizar usuario', error: err.message });
     }
 }
-
 
 module.exports = {
     iniciarSesion,

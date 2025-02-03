@@ -18,7 +18,7 @@ const Home = () => {
     return (
         <div className='Home'>
             <div>
-            <h3 className="sombra-fuerte-texto largeText ligth-tittle poppins-regular nombre">Juan Felipe Jiménez Salazar</h3>
+                <h3 className="sombra-suave-texto largeText ligth-tittle poppins-regular nombre">Juan Felipe Jiménez Salazar</h3>
                 <img className='foto sombra-suave' src={fotoFelipeJimenez} alt='foto de felipe jimenez' />
                 <h2 className='sombra-suave-texto largeText blueTittle poppins-semibold'>
                     Prueba Full Stack
@@ -26,22 +26,22 @@ const Home = () => {
                 <p className='poppins-regular parrafo sombra-medio-text'>
                     Esta api es una prueba para mi postulación
                     <br />
-                     en el cargo de desarrollador fullstack,
-                    <br /> 
+                    en el cargo de desarrollador fullstack,
+                    <br />
                     en la empresa Susoftware.
                 </p>
                 <div className='content_botones'>
-                <button id='loginBtn' className=' regularText loginBtn poppins-semibold'
-                    onClick={handleLogin}>
-                    Login
-                </button >
-                <button id='registerBtn'
-                    className='regularText btnNegativo poppins-semibold'
-                    onClick={handleRegister}>
-                    Register
-                </button>
+                    <button id='loginBtn' className=' regularText loginBtn poppins-semibold'
+                        onClick={handleLogin}>
+                        Login
+                    </button >
+                    <button id='registerBtn'
+                        className='regularText btnNegativo poppins-semibold'
+                        onClick={handleRegister}>
+                        Register
+                    </button>
                 </div>
-                
+
             </div>
         </div>
     )
